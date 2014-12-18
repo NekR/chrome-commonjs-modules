@@ -6,8 +6,10 @@ var modules = new Modules({
       // do nothing
     } else if (path[0] === '.' || path[0] === '/') {
       path = chrome.runtime.getURL(path);
-    } else {
+    } else if (this.relativePath) {
       // relative
+      path = chrome.runtime.getURL(this.relativePath + path);
+    } else {
       return this.get(path);
     }
 
